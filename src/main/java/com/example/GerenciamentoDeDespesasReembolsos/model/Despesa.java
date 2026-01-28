@@ -40,11 +40,11 @@ public class Despesa {
     @JoinColumn(name = "centro_custo_id", nullable = false)
     private CentroDeCusto centroDeCusto;
 
-    // ✅ CONSTRUTOR PADRÃO (OBRIGATÓRIO JPA)
+
     protected Despesa() {
     }
 
-    // ✅ CONSTRUTOR DE NEGÓCIO (SEM GERAR ID MANUALMENTE)
+
     public Despesa(
             double valor,
             TipoDespesa tipo,
@@ -63,7 +63,7 @@ public class Despesa {
         this.centroDeCusto = centroDeCusto;
     }
 
-    // ✅ GETTERS
+
     public String getId() {
         return id;
     }

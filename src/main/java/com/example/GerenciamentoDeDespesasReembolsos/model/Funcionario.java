@@ -26,11 +26,9 @@ public class Funcionario {
     @Column(nullable = false)
     private double saldoReembolsoDisponivel;
 
-    // ✅ Construtor vazio obrigatório para JPA
     protected Funcionario() {
     }
 
-    // ✅ REMOVIDO: this.id = UUID.randomUUID().toString();
     public Funcionario(
             String nome,
             String cargo,
@@ -43,7 +41,7 @@ public class Funcionario {
         this.saldoReembolsoDisponivel = saldoReembolsoDisponivel;
     }
 
-    // ✅ Getters (SEM setter para ID!)
+
     public String getId() {
         return id;
     }

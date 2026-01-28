@@ -28,7 +28,7 @@ public class DespesaService {
         this.centroDeCustoRepository = centroDeCustoRepository;
     }
 
-    // ===== CRIAR DESPESA (método original - mantido) =====
+
     @Transactional
     public Despesa criarDespesa(
             double valor,
@@ -52,24 +52,24 @@ public class DespesaService {
         return despesaRepository.save(despesa);
     }
 
-    // ===== CRIAR DESPESA (para API REST - novo método) =====
+
     @Transactional
     public Despesa criarDespesa(Despesa despesa) {
-        // Busca e valida funcionário
+
         if (despesa.getFuncionario() != null && despesa.getFuncionario().getId() != null) {
             Funcionario funcionario = funcionarioRepository.findById(despesa.getFuncionario().getId())
                     .orElseThrow(() -> new IllegalArgumentException("Funcionário não encontrado"));
             despesa.setFuncionario(funcionario);
         }
 
-        // Busca e valida centro de custo
+
         if (despesa.getCentroDeCusto() != null && despesa.getCentroDeCusto().getId() != null) {
             CentroDeCusto centro = centroDeCustoRepository.findById(despesa.getCentroDeCusto().getId())
                     .orElseThrow(() -> new IllegalArgumentException("Centro de custo não encontrado"));
             despesa.setCentroDeCusto(centro);
         }
 
-        // Valida dados
+
         validarDadosDespesa(
                 despesa.getValor(),
                 despesa.getTipo(),
@@ -78,7 +78,7 @@ public class DespesaService {
                 despesa.getCentroDeCusto()
         );
 
-        // Define valores padrão
+
         if (despesa.getDataCriacao() == null) {
             despesa.setDataCriacao(LocalDate.now());
         }
@@ -89,17 +89,17 @@ public class DespesaService {
         return despesaRepository.save(despesa);
     }
 
-    // ===== BUSCAR POR ID (retorna Optional agora) =====
+
     public Optional<Despesa> buscarDespesaPorId(String id) {
         return despesaRepository.findById(id);
     }
 
-    // ===== LISTAR TODAS =====
+
     public List<Despesa> listarDespesas() {
         return despesaRepository.findAll();
     }
 
-    // ===== BUSCAR POR FUNCIONÁRIO =====
+
     public List<Despesa> buscarDespesasPorFuncionario(String funcionarioId) {
         Funcionario funcionario = funcionarioRepository.findById(funcionarioId)
                 .orElseThrow(() -> new IllegalArgumentException("Funcionário não encontrado"));
@@ -108,7 +108,7 @@ public class DespesaService {
     }
 
 
-    // ===== ATUALIZAR DESPESA =====
+
     @Transactional
     public Optional<Despesa> atualizarDespesa(String id, Despesa despesaAtualizada) {
         return despesaRepository.findById(id).map(despesa -> {
@@ -126,7 +126,7 @@ public class DespesaService {
         });
     }
 
-    // ===== DELETAR DESPESA =====
+
     @Transactional
     public boolean deletarDespesa(String id) {
         if (despesaRepository.existsById(id)) {
@@ -136,7 +136,7 @@ public class DespesaService {
         return false;
     }
 
-    // ===== VALIDAÇÃO PRIVADA =====
+
     private void validarDadosDespesa(
             double valor,
             TipoDespesa tipoDespesa,

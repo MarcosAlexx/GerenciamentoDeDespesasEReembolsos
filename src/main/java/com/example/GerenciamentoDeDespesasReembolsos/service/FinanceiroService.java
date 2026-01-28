@@ -30,7 +30,6 @@ public class FinanceiroService {
             throw new IllegalStateException("Despesa sem Centro de Custo vinculado");
         }
 
-        // garante que está pegando do banco (e não só o objeto “solto”)
         CentroDeCusto centroBanco = centroDeCustoRepository.findById(centro.getId())
                 .orElseThrow(() -> new IllegalStateException("Centro de Custo não encontrado"));
 
